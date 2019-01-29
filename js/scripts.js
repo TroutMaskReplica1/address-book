@@ -38,7 +38,7 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber, workEmail, personalEmail, personalAddress,  workAddress) {
+function Contact(firstName, lastName, phoneNumber, workEmail, personalEmail, workAddress, personalAddress) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
@@ -75,19 +75,13 @@ function displayContactDetails(addressBookToDisplay) {
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
-  // for(var key in contact) {
-  //   if $(.html === "") {
-  //     console.log(this);
-  //     this.remove();
-  //   }
-  // }
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
-  $(".personal-email").html(contact.email.personalEmail);
-  $(".personal-address").html(contact.address.personalAddress);
   $(".work-email").html(contact.email.workEmail);
+  $(".personal-email").html(contact.email.personalEmail);
   $(".work-address").html(contact.address.workAddress);
+  $(".personal-address").html(contact.address.personalAddress);
   var buttons = $("#buttons");
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
@@ -110,19 +104,20 @@ $(document).ready(function() {
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
     function checkForBlank() {
-      var inputArray = [inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedPersonalEmail, inputtedPersonalAddress, inputtedWorkEmail, inputtedWorkAddress];
+      var inputArray = [inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedWorkEmail, inputtedPersonalEmail, inputtedWorkAddress, inputtedPersonalAddress];
       for(var i = 0; i < inputArray.length; i++) {
         if(inputArray[i] === "") {
-          $("#" + (i)).hide();
+          $("#" + [i]).hide();
         }
       }
+      return inputArray=[];
     }
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
     var inputtedPersonalEmail = $("input#personal-email").val();
-    var inputtedPersonalAddress = $("input#personal-address").val();
     var inputtedWorkEmail = $("input#work-email").val();
+    var inputtedPersonalAddress = $("input#personal-address").val();
     var inputtedWorkAddress = $("input#work-address").val();
     checkForBlank();
     $("input#new-first-name").val("");
