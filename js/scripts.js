@@ -38,7 +38,7 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber, personalEmail, personalAddress, workEmail, workAddress) {
+function Contact(firstName, lastName, phoneNumber, workEmail, personalEmail, personalAddress,  workAddress) {
   this.firstName = firstName;
   this.lastName = lastName;
   this.phoneNumber = phoneNumber;
@@ -75,6 +75,12 @@ function displayContactDetails(addressBookToDisplay) {
 function showContact(contactId) {
   var contact = addressBook.findContact(contactId);
   $("#show-contact").show();
+  // for(var key in contact) {
+  //   if $(.html === "") {
+  //     console.log(this);
+  //     this.remove();
+  //   }
+  // }
   $(".first-name").html(contact.firstName);
   $(".last-name").html(contact.lastName);
   $(".phone-number").html(contact.phoneNumber);
@@ -86,6 +92,7 @@ function showContact(contactId) {
   buttons.empty();
   buttons.append("<button class='deleteButton' id=" +  + contact.id + ">Delete</button>");
 }
+
 
 function attachContactListeners() {
   $("ul#contacts").on("click", "li", function() {
@@ -102,6 +109,14 @@ $(document).ready(function() {
   attachContactListeners();
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
+    function checkForBlank() {
+      var inputArray = [inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedPersonalEmail, inputtedPersonalAddress, inputtedWorkEmail, inputtedWorkAddress];
+      for(var i = 0; i < inputArray.length; i++) {
+        if(inputArray[i] === "") {
+          $("#" + (i)).hide();
+        }
+      }
+    }
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
@@ -109,6 +124,7 @@ $(document).ready(function() {
     var inputtedPersonalAddress = $("input#personal-address").val();
     var inputtedWorkEmail = $("input#work-email").val();
     var inputtedWorkAddress = $("input#work-address").val();
+    checkForBlank();
     $("input#new-first-name").val("");
     $("input#new-last-name").val("");
     $("input#new-phone-number").val("");
