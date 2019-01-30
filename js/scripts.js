@@ -99,19 +99,23 @@ function attachContactListeners() {
   });
 };
 
+// broken part
 $(document).ready(function() {
   attachContactListeners();
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
     function checkForBlank() {
       var inputArray = [inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedWorkEmail, inputtedPersonalEmail, inputtedWorkAddress, inputtedPersonalAddress];
+      var input = inputArray.slice();
       for(var i = 0; i < inputArray.length; i++) {
-        if(inputArray[i] === "") {
+        if(input[i] === "") {
+          console.log();
           $("#" + [i]).hide();
         }
       }
-      return inputArray=[];
+      // return inputArray=[];
     }
+    // end of broken part
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
